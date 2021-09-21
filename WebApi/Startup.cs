@@ -25,8 +25,11 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // 原本的語法
+            //services.AddControllers();
 
-            services.AddControllers();
+            // 改用下面這行，則會發生 AutoValidateAntiforgeryTokenAuthorizationFilter 並未被註冊的 Exception
+            services.AddControllers(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
